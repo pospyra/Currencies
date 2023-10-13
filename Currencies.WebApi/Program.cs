@@ -1,4 +1,5 @@
 using Currencies.WebApi.Extensions;
+using System.Text;
 
 namespace Currencies.WebApi
 {

@@ -1,5 +1,4 @@
 ﻿using Currencies.DAL.Entities;
-using Currencies.DAL.EntityConfigurations;
 using Microsoft.EntityFrameworkCore;
 
 namespace Currencies.DAL.Context
@@ -8,14 +7,22 @@ namespace Currencies.DAL.Context
     {
         public CurrenciesContext() { }
 
-        public CurrenciesContext(DbContextOptions<CurrenciesContext> options) : base(options) { }
+        public CurrenciesContext(DbContextOptions<CurrenciesContext> options) : base(options)
+        {
+            Database.EnsureCreated();
+        }
 
         public DbSet<User> Users { get; set; }
-        public DbSet<Currency> Currencies { get; set; }
+        public DbSet<Valute> Valutes { get; set; }
+        public DbSet<ValCurs> ValCurs { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            modelBuilder.ApplyConfiguration(new UserConfiguration());
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlite(@"Data Source=currencies.db");
+            }
         }
     }
 }

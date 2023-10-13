@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Currencies.DAL.EntityConfigurations
 {
-    public class UserConfiguration : IEntityTypeConfiguration<User>
+    public class ValuteConfiguration : IEntityTypeConfiguration<Valute>
     {
-        public void Configure(EntityTypeBuilder<User> builder)
+        public void Configure(EntityTypeBuilder<Valute> builder)
         {
-            builder.Property(e => e.Id)
+            builder.Property(e => e.ID)
              .ValueGeneratedOnAdd();
         }
     }
