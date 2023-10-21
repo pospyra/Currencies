@@ -10,6 +10,9 @@ namespace Currencies.DAL.EntityConfigurations
         {
             builder.Property(e => e.Id)
              .ValueGeneratedOnAdd();
+
+            builder.HasIndex(e => e.Email)
+                .IsUnique();
         }
     }
 }

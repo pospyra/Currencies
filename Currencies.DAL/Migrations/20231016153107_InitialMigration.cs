@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -17,7 +16,10 @@ namespace Currencies.DAL.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: false)
+                    Email = table.Column<string>(type: "TEXT", nullable: true),
+                    UserName = table.Column<string>(type: "TEXT", nullable: true),
+                    Password = table.Column<string>(type: "TEXT", nullable: true),
+                    Salt = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -30,9 +32,8 @@ namespace Currencies.DAL.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: false),
-                    Date = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    DateString = table.Column<string>(type: "TEXT", nullable: false)
+                    Name = table.Column<string>(type: "TEXT", nullable: true),
+                    Date = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -40,7 +41,7 @@ namespace Currencies.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Valutes",
+                name: "Currencies",
                 columns: table => new
                 {
                     ID = table.Column<string>(type: "TEXT", nullable: false),
@@ -54,9 +55,9 @@ namespace Currencies.DAL.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Valutes", x => x.ID);
+                    table.PrimaryKey("PK_Currencies", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_Valutes_ValCurs_ValCursId",
+                        name: "FK_Currencies_ValCurs_ValCursId",
                         column: x => x.ValCursId,
                         principalTable: "ValCurs",
                         principalColumn: "Id",
@@ -64,8 +65,8 @@ namespace Currencies.DAL.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Valutes_ValCursId",
-                table: "Valutes",
+                name: "IX_Currencies_ValCursId",
+                table: "Currencies",
                 column: "ValCursId");
         }
 
@@ -73,10 +74,10 @@ namespace Currencies.DAL.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "Currencies");
 
             migrationBuilder.DropTable(
-                name: "Valutes");
+                name: "Users");
 
             migrationBuilder.DropTable(
                 name: "ValCurs");
