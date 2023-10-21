@@ -1,4 +1,4 @@
-﻿using Currencies.Common.DTO;
+﻿using Currencies.Common.DTO.Currency;
 
 namespace Currencies.BLL.IServices
 {

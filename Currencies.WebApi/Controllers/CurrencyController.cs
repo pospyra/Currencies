@@ -1,5 +1,6 @@
 using Currencies.BLL.IServices;
-using Currencies.Common.DTO;
+using Currencies.Common.DTO.Currency;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Currencies.WebApi.Controllers
@@ -21,7 +22,7 @@ namespace Currencies.WebApi.Controllers
             return Ok(result);
         }
 
-
+        [Authorize]
         [HttpGet("currency")]
         public async Task<ActionResult<CurrencyDTO>> GetCurrencies(string id)
         {

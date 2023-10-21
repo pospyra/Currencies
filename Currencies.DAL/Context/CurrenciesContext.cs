@@ -7,22 +7,10 @@ namespace Currencies.DAL.Context
     {
         public CurrenciesContext() { }
 
-        public CurrenciesContext(DbContextOptions<CurrenciesContext> options) : base(options)
-        {
-            Database.EnsureCreated();
-        }
+        public CurrenciesContext(DbContextOptions<CurrenciesContext> options) : base(options) { }
 
         public DbSet<User> Users { get; set; }
-        public DbSet<Valute> Valutes { get; set; }
+        public DbSet<Currency> Currencies { get; set; }
         public DbSet<ValCurs> ValCurs { get; set; }
-
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseSqlite(@"Data Source=currencies.db");
-            }
-        }
     }
 }

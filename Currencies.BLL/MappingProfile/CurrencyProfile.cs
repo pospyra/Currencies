@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Currencies.Common.DTO;
+using Currencies.Common.DTO.Currency;
 using Currencies.DAL.Entities;
 
 namespace Currencies.BLL.MappingProfile
@@ -8,7 +8,7 @@ namespace Currencies.BLL.MappingProfile
     {
         public CurrencyProfile()
         { 
-            CreateMap<Valute, CurrencyDTO>().ReverseMap();
+            CreateMap<Currency, CurrencyDTO>().ReverseMap();
         }
     }
 }
