@@ -1,5 +1,4 @@
 using Currencies.WebApi.Extensions;
-using System.Text;
 
 namespace Currencies.WebApi
 {
@@ -11,7 +10,10 @@ namespace Currencies.WebApi
 
             builder.Services.AddControllers();
 
-            builder.Services.RegisterCustomService();
+            builder.Services.RegisterService(builder.Configuration);
+            builder.Services.ConfigureAuth(builder.Configuration);
+            builder.Services.ConfigureSwagger();
+            builder.Services.RegisterAutoMapper();
 
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
@@ -27,8 +29,8 @@ namespace Currencies.WebApi
 
             app.UseHttpsRedirection();
 
+            app.UseAuthentication();
             app.UseAuthorization();
-
 
             app.MapControllers();
 
