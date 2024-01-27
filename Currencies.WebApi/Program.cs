@@ -20,6 +20,8 @@ namespace Currencies.WebApi
 
             var app = builder.Build();
 
+            app.UseCurrencyContext();
+
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
