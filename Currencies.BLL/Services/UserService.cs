@@ -24,6 +24,14 @@ namespace Currencies.BLL.Services
 
         public async Task<UserDto> CreateUser(NewUserDto userDto)
         {
+            var isExistUser = await _context.Users
+               .AnyAsync(user => user.Email == userDto.Email);
+
+            if(isExistUser)
+            {
+                throw new InvalidOperationException("User with this email already exist");
+            }
+
             var userEntity = _mapper.Map<User>(userDto);
 
             var salt = SecurityHelper.GetRandomBytes();
@@ -41,7 +49,7 @@ namespace Currencies.BLL.Services
         {
             var userEntity = await _context.Users
                 .FirstOrDefaultAsync(user => user.Email == userLogin.Email) 
-                    ?? throw new InvalidOperationException($"The user already exist");
+                    ?? throw new InvalidOperationException($"The user doesn't exist");
 
             if (!SecurityHelper.ValidatePassword(userLogin.Password, userEntity.Password, userEntity.Salt))
             {
