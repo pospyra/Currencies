@@ -16,9 +16,9 @@ namespace Currencies.WebApi.Controllers
         }
 
         [HttpGet("currencies")]
-        public async Task<ActionResult<ICollection<CurrencyDTO>>> GetCurrencies()
+        public async Task<ActionResult<ICollection<CurrencyDTO>>> GetCurrencies(int pageNumber, int pageSize)
         {
-            var result = await _currencyService.GetCurrenciesAsync();
+            var result = await _currencyService.GetCurrenciesAsync(pageNumber, pageSize);
             return Ok(result);
         }
 

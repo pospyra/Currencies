@@ -8,7 +8,7 @@ using Microsoft.Extensions.Caching.Memory;
 
 namespace Currencies.BLL.Services
 {
-    public class CurrencyService : BaseService,ICurrencyService
+    public class CurrencyService : BaseService, ICurrencyService
     {
         private readonly IMemoryCache _cache;
         public CurrencyService(CurrenciesContext context, IMapper mapper, IMemoryCache cache) : base(context, mapper)
@@ -16,28 +16,16 @@ namespace Currencies.BLL.Services
             _cache = cache;
         }
 
-        public async Task<ICollection<CurrencyDTO>> GetCurrenciesAsync()
+        public async Task<ICollection<CurrencyDTO>> GetCurrenciesAsync(int pageNumber, int pageSize)
         {
-            if (_cache.TryGetValue("Currencies", out ICollection<CurrencyDTO> cachedCurrencies))
-            {
-                if (cachedCurrencies is not null)
-                {
-                    return cachedCurrencies;  
-                }
-            }
+            int skip = (pageNumber - 1) * pageSize;
 
-            var currencies = await _context.Currencies.ToListAsync();
+            var currencies = await _context.Currencies
+                .Skip(skip)
+                .Take(pageSize)
+                .ToListAsync();
+
             var mappedCurrencies = _mapper.Map<ICollection<CurrencyDTO>>(currencies);
-
-            var cacheOptions = new MemoryCacheEntryOptions
-            {
-                AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(10)
-            };
-
-            if (mappedCurrencies.Any())
-            {
-                _cache.Set("Currencies", mappedCurrencies, cacheOptions);
-            }
 
             return mappedCurrencies;
         }

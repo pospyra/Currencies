@@ -2,9 +2,10 @@
 
 namespace Currencies.BLL.IServices
 {
-    public interface ICurrencyService 
+    public interface ICurrencyService
     {
         Task<CurrencyDTO> GetCurrencyByIdAsync(string currencyId);
-        Task<ICollection<CurrencyDTO>> GetCurrenciesAsync();
+
+        Task<ICollection<CurrencyDTO>> GetCurrenciesAsync(int pageNumber, int pageSize);
     }
 }
